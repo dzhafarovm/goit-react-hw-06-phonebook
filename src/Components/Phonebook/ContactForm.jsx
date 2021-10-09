@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import shortid from 'shortid';
 import toast from 'react-hot-toast';
 import { addContact } from '../../redux/Phonebook/phonebook-actions';
+import { getContacts } from '../../redux/Phonebook/phonebook-selectors';
 import css from './phonebook-css/ContactForm.module.css';
 
 export default function ContactForm() {
-  const contacts = useSelector(state => state.phonebook.items);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');

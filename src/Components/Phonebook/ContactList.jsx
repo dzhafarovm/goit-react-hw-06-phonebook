@@ -1,19 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/Phonebook/phonebook-actions';
+import { onFilteredContacts } from '../../redux/Phonebook/phonebook-selectors';
 import css from './phonebook-css/ContactList.module.css';
 
-const onFilteredContacts = (contacts, filter) => {
-  const normalizedFilter = filter.toLowerCase();
-
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter),
-  );
-};
-
 export default function ContactList() {
-  const contacts = useSelector(state =>
-    onFilteredContacts(state.phonebook.items, state.phonebook.filter),
-  );
+  const contacts = useSelector(onFilteredContacts);
   const dispatch = useDispatch();
 
   const onDeleteContact = id => dispatch(deleteContact(id));

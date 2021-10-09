@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from '../../redux/Counter/counter-actions.jsx';
+import { getValue, getStep } from '../../redux/Counter/counter-selectors.jsx';
 import Controls from './Controls';
 import Value from './Value';
 
 export const Counter = () => {
-  const value = useSelector(state => state.counter.value);
-  const step = useSelector(state => state.counter.step);
+  const value = useSelector(getValue);
+  const step = useSelector(getStep);
 
   const dispatch = useDispatch();
   // const incrementFn = () => dispatch(increment(step));

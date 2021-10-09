@@ -3,10 +3,11 @@ import { Toaster } from 'react-hot-toast';
 import ContactForm from './ContactForm.jsx';
 import ContactList from './ContactList.jsx';
 import Filter from './Filter';
+import { getContacts } from '../../redux/Phonebook/phonebook-selectors';
 import css from './phonebook-css/Phonebook.module.css';
 
 export const Phonebook = () => {
-  const contacts = useSelector(state => state.phonebook.items);
+  const contacts = useSelector(getContacts);
 
   return (
     <div className={css.phonebookBox}>
