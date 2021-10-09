@@ -1,9 +1,8 @@
-// import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
-import ContactForm from './ContactForm/ContactForm.jsx';
-import ContactList from './ContactList/ContactList.jsx';
-import Filter from './Filter/Filter';
+import ContactForm from './ContactForm.jsx';
+import ContactList from './ContactList.jsx';
+import Filter from './Filter';
 import css from './phonebook-css/Phonebook.module.css';
 
 export const Phonebook = () => {
