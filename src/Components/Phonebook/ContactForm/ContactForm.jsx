@@ -1,9 +1,14 @@
 import { useState, useRef } from 'react';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
-import css from './ContactForm.module.css';
+import toast from 'react-hot-toast';
+import { addContact } from '../../../redux/Phonebook/phonebook-actions';
+import css from '../phonebook-css/ContactForm.module.css';
 
-export const ContactForm = ({ onSubmit }) => {
+const ContactForm = ({ onSubmit }) => {
+  const contacts = useSelector(state => state.phonebook.items);
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -27,6 +32,31 @@ export const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    if (contacts.find(con => con.name.toLowerCase() === name.toLowerCase())) {
+      toast(`Name '${name}' is alresdy in contacts`, {
+        icon: '📞',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      });
+
+      return;
+    }
+
+    if (contacts.find(con => con.number === number)) {
+      toast(`Number '${number}' is alresdy in contacts`, {
+        icon: '📞',
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      });
+      return;
+    }
 
     onSubmit({ name, number });
     setName('');
@@ -83,3 +113,9 @@ export const ContactForm = ({ onSubmit }) => {
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(addContact(data)),
+});
+
+export default connect(null, mapDispatchToProps)(ContactForm);
